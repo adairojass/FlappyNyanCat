@@ -1,0 +1,46 @@
+"""Global configuration for Flappy Nyan Cat PRO."""
+
+from pathlib import Path
+
+# Window
+SCREEN_WIDTH = 960
+SCREEN_HEIGHT = 540
+FPS = 60
+TITLE = "Flappy Nyan Cat PRO"
+
+# Physics
+GRAVITY = 1400.0
+JUMP_VELOCITY = -420.0
+MAX_FALL_SPEED = 620.0
+PLAYER_START_X = 220
+PLAYER_START_Y = SCREEN_HEIGHT // 2
+
+# Pipes
+PIPE_WIDTH = 110
+PIPE_GAP = 180
+PIPE_SPAWN_SECONDS = 1.45
+PIPE_SPAWN_MIN = 0.95
+PIPE_SPEED_BASE = 230.0
+PIPE_SPEED_MAX = 420.0
+PIPE_SPEED_SCORE_MULTIPLIER = 7.5
+
+# Gameplay
+POINTS_PER_PIPE = 1
+
+# Colors
+SPACE_TOP = (11, 22, 61)
+SPACE_BOTTOM = (33, 7, 52)
+STAR_COLOR = (255, 255, 214)
+TEXT_MAIN = (245, 247, 255)
+TEXT_ACCENT = (132, 235, 255)
+TEXT_WARNING = (255, 170, 175)
+PIPE_BODY = (93, 224, 126)
+PIPE_EDGE = (37, 122, 65)
+PIPE_CAP = (133, 242, 157)
+
+# Paths
+BASE_DIR = Path(__file__).resolve().parent
+ASSETS_DIR = BASE_DIR / "assets"
+IMAGES_DIR = ASSETS_DIR / "images"
+SOUNDS_DIR = ASSETS_DIR / "sounds"
+HIGH_SCORE_FILE = BASE_DIR / "highscore.txt"
