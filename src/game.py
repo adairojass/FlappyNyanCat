@@ -13,6 +13,7 @@ from src.ui import (
     draw_game_over_overlay,
     draw_gradient_background,
     draw_hud,
+    draw_pause_overlay,
     draw_starfield,
     draw_start_overlay,
 )
@@ -29,6 +30,7 @@ from src.utils import (
 class GameState(Enum):
     START = auto()
     PLAYING = auto()
+    PAUSED = auto()
     GAME_OVER = auto()
 
 
@@ -101,6 +103,20 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
+
+                if event.key == pygame.K_m and self.state in (
+                    GameState.PLAYING,
+                    GameState.PAUSED,
+                    GameState.GAME_OVER,
+                ):
+                    self.reset_round(full_reset=True)
+                    continue
+
+                if event.key == pygame.K_p:
+                    if self.state == GameState.PLAYING:
+                        self.state = GameState.PAUSED
+                    elif self.state == GameState.PAUSED:
+                        self.state = GameState.PLAYING
 
                 if event.key == pygame.K_SPACE:
                     if self.state == GameState.START:
@@ -179,6 +195,8 @@ class Game:
 
         if self.state == GameState.START:
             draw_start_overlay(self.screen, self.title_font, self.body_font)
+        elif self.state == GameState.PAUSED:
+            draw_pause_overlay(self.screen, self.title_font, self.body_font)
         elif self.state == GameState.GAME_OVER:
             draw_game_over_overlay(self.screen, self.score, self.high_score, self.title_font, self.body_font)
             if self.flash_timer > 0:

@@ -55,7 +55,7 @@ def draw_start_overlay(
 ) -> None:
     title = title_font.render("Flappy Nyan Cat PRO", True, config.TEXT_MAIN)
     hint = body_font.render("Press SPACE to Start", True, config.TEXT_ACCENT)
-    help_line = body_font.render("SPACE = Jump | R = Restart | ESC = Quit", True, config.TEXT_MAIN)
+    help_line = body_font.render("SPACE = Jump | P = Pause | M = Menu | ESC = Quit", True, config.TEXT_MAIN)
 
     panel = pygame.Surface((580, 180), pygame.SRCALPHA)
     pygame.draw.rect(panel, (8, 10, 30, 185), panel.get_rect(), border_radius=18)
@@ -66,6 +66,26 @@ def draw_start_overlay(
     screen.blit(title, title.get_rect(center=(panel_rect.centerx, panel_rect.top + 50)))
     screen.blit(hint, hint.get_rect(center=(panel_rect.centerx, panel_rect.top + 98)))
     screen.blit(help_line, help_line.get_rect(center=(panel_rect.centerx, panel_rect.top + 140)))
+
+
+def draw_pause_overlay(
+    screen: pygame.Surface,
+    title_font: pygame.font.Font,
+    body_font: pygame.font.Font,
+) -> None:
+    panel = pygame.Surface((520, 200), pygame.SRCALPHA)
+    pygame.draw.rect(panel, (10, 18, 34, 220), panel.get_rect(), border_radius=16)
+    pygame.draw.rect(panel, config.TEXT_ACCENT, panel.get_rect(), width=2, border_radius=16)
+    panel_rect = panel.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2))
+
+    paused = title_font.render("Paused", True, config.TEXT_MAIN)
+    resume_text = body_font.render("Press P to Resume", True, config.TEXT_ACCENT)
+    menu_text = body_font.render("Press M for Main Menu", True, config.TEXT_MAIN)
+
+    screen.blit(panel, panel_rect)
+    screen.blit(paused, paused.get_rect(center=(panel_rect.centerx, panel_rect.top + 56)))
+    screen.blit(resume_text, resume_text.get_rect(center=(panel_rect.centerx, panel_rect.top + 110)))
+    screen.blit(menu_text, menu_text.get_rect(center=(panel_rect.centerx, panel_rect.top + 150)))
 
 
 def draw_game_over_overlay(
@@ -83,7 +103,7 @@ def draw_game_over_overlay(
     game_over = title_font.render("Game Over", True, config.TEXT_WARNING)
     score_text = body_font.render(f"Score: {score}", True, config.TEXT_MAIN)
     high_text = body_font.render(f"High Score: {high_score}", True, config.TEXT_ACCENT)
-    retry_text = body_font.render("Press R to Restart or SPACE to Play Again", True, config.TEXT_MAIN)
+    retry_text = body_font.render("R/SPACE = Restart | M = Main Menu", True, config.TEXT_MAIN)
 
     screen.blit(panel, panel_rect)
     screen.blit(game_over, game_over.get_rect(center=(panel_rect.centerx, panel_rect.top + 50)))
