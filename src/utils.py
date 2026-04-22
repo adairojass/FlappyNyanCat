@@ -26,6 +26,7 @@ def load_high_score(path: Path) -> int:
 
 def save_high_score(path: Path, score: int) -> None:
     try:
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(str(max(0, int(score))), encoding="utf-8")
     except OSError:
         # The game remains playable even if persistence fails.

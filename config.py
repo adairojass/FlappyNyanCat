@@ -1,5 +1,6 @@
 """Global configuration for Flappy Nyan Cat PRO."""
 
+import sys
 from pathlib import Path
 
 # Window
@@ -43,4 +44,16 @@ BASE_DIR = Path(__file__).resolve().parent
 ASSETS_DIR = BASE_DIR / "assets"
 IMAGES_DIR = ASSETS_DIR / "images"
 SOUNDS_DIR = ASSETS_DIR / "sounds"
-HIGH_SCORE_FILE = BASE_DIR / "highscore.txt"
+
+
+def _resolve_user_data_dir() -> Path:
+    if sys.platform == "darwin":
+        return Path.home() / "Library" / "Application Support" / "FlappyNyanCat"
+    if sys.platform.startswith("win"):
+        appdata = Path.home() / "AppData" / "Roaming"
+        return appdata / "FlappyNyanCat"
+    return Path.home() / ".flappynyancat"
+
+
+USER_DATA_DIR = _resolve_user_data_dir()
+HIGH_SCORE_FILE = USER_DATA_DIR / "highscore.txt"
